@@ -14,7 +14,8 @@ class ActividadController extends Controller
      */
     public function index()
     {
-        //
+        $actividad = actividad::all();
+        return $actividad;
     }
 
     /**
@@ -35,7 +36,9 @@ class ActividadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $actividad = actividad::create($request->all());
+        return $actividad;
+
     }
 
     /**
@@ -69,7 +72,11 @@ class ActividadController extends Controller
      */
     public function update(Request $request, actividad $actividad)
     {
-        //
+          
+        $actividad->fill($request->all());
+        $actividad->save();
+
+        return $actividad;   
     }
 
     /**
@@ -80,6 +87,6 @@ class ActividadController extends Controller
      */
     public function destroy(actividad $actividad)
     {
-        //
+        $actividad->delete();
     }
 }
