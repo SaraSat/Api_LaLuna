@@ -49,7 +49,8 @@ class ActividadController extends Controller
      */
     public function show(actividad $actividad)
     {
-        //
+        $act=actividad::where('id',$actividad);
+        return $act;
     }
 
     /**
