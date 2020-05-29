@@ -49,8 +49,8 @@ class InicioController extends Controller
      */
     public function show(inicio $inicio)
     {
-        $actividad=inicio::where('id',$inicio);
-        return $actividad;
+       $inicio=inicio::find($inicio->id);
+        return $inicio;
     }
 
     /**
