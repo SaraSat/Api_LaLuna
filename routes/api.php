@@ -21,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('inicios','InicioController');
 Route::resource('actividads','ActividadController');
 Route::resource('evaluacions','EvaluacionController');
+Route::resource('monitors','MonitorController');

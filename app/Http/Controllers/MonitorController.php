@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\evaluacion;
+use App\monitor;
 use Illuminate\Http\Request;
 
-class EvaluacionController extends Controller
+class MonitorController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() //usa el metodo get 
+    public function index()  //usa el metodo get 
     {
-        $evaluacion = evaluacion::all();
-        return $evaluacion;
+        $monitor = monitor::all();
+        return $monitor;
     }
 
     /**
@@ -36,59 +36,59 @@ class EvaluacionController extends Controller
      */
     public function store(Request $request)
     {
-        //este es el metodo post para insertar una nueva evaluacion
-        $evaluacion = evaluacion::create($request->all());
-        return $evaluacion;
+             //este es el metodo post para insertar una nueva evaluacion
+             $monitor = monitor::create($request->all());
+             return $monitor;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\evaluacion  $evaluacion
+     * @param  \App\monitor  $monitor
      * @return \Illuminate\Http\Response
      */
-    public function show(evaluacion $evaluacion)
+    public function show(monitor $monitor)
     {
-        //este es para mostrar una evaluacion en concreto
-        $evaluacion=$evaluacion::find($evaluacion->id);
-         return $evaluacion;
+        //este es para mostrar un monitor en concreto
+        $monitor=$monitor::find($monitor->id);
+         return $monitor;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\evaluacion  $evaluacion
+     * @param  \App\monitor  $monitor
      * @return \Illuminate\Http\Response
      */
-    public function edit(evaluacion $evaluacion)
+    public function edit(monitor $monitor)
     {
-        //para las apis no se utiliza
+         //para las apis no se utiliza
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\evaluacion  $evaluacion
+     * @param  \App\monitor  $monitor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, evaluacion $evaluacion)
+    public function update(Request $request, monitor $monitor)
     {
         //es para actualizar los datos de la tabla (metodo put)
         // recibe una peticion y lo que hace es meterlo en la tabla
 
-        $evaluacion->fill($request->all());
-        $evaluacion->save();
-        return $evaluacion;   
+        $monitor->fill($request->all());
+        $monitor->save();
+        return $monitor;  
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\evaluacion  $evaluacion
+     * @param  \App\monitor  $monitor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(evaluacion $evaluacion)
+    public function destroy(monitor $monitor)
     {
         //metodo delete recibe una evaluacion y la borra
 
