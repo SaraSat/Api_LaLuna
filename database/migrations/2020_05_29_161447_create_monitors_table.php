@@ -18,8 +18,10 @@ class CreateMonitorsTable extends Migration
             $table->string('nombre');
             $table->string('apellidos');
             $table->integer('telefono');
-            $table->string('email'); //el correo va a ser el usuario
+            $table->string('email')->unique(); //el correo va a ser el usuario
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('coment');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
