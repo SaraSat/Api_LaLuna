@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/monitor', function (Request $request) {
-    return $request->monitor();
-});
-
 Route::resource('inicios','InicioController');
 Route::resource('actividads','ActividadController');
 Route::resource('evaluacions','EvaluacionController');
-Route::resource('monitors','MonitorController');
+
+Route::post('login', 'UserController@login');
+Route::post('register', 'UserController@register');
+Route::group(['middleware' => 'auth:api'], function(){
+Route::post('details', 'UserController@details');
+});
