@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::resource('inicios','InicioController');
 Route::resource('actividads','ActividadController');
 Route::resource('evaluacions','EvaluacionController');
+Route::resource('luneros','LuneroController');
 
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
