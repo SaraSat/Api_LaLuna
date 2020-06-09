@@ -4,82 +4,60 @@ namespace App\Http\Controllers;
 
 use App\administrador;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Validator;
+
+
 
 class AdministradorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    public $successStatus = 200;
+    protected $guard = 'admin';
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function admin(Request $request)
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\administrador  $administrador
-     * @return \Illuminate\Http\Response
-     */
-    public function show(administrador $administrador)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\administrador  $administrador
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(administrador $administrador)
-    {
-        //
+       if (Auth::guard('admin')->attempt(['password' => $request['password']])) {
+            return response()->json('hola');
+            $user = Auth::admin();
+            $success['token'] =  $user->createToken('MyApp')-> accessToken;
+            return response()->json(['success' => $success], $this-> successStatus);
+        } else {
+            return response()->json(['error'=>'Unauthorised'], 401);
+        }
     }
-
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\administrador  $administrador
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, administrador $administrador)
+    * Register api
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function registerAdmin(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'password' => 'required',
+            ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);
+        }
+            $input = $request->all();
+            $input['password'] = bcrypt($input['password']);
+            $user = administrador::create($input);
+            $success['token'] =  $user->createToken('MyApp')-> accessToken;
+            $success['user_id'] =  $user->user_id;
+            return response()->json(['success'=>$success], $this-> successStatus);
     }
-
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\administrador  $administrador
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(administrador $administrador)
+    * details api
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function details()
     {
-        //
+        $user = Auth::admin();
+        return response()->json(['success' => $user], $this-> successStatus);
     }
 }

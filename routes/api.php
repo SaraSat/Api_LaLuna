@@ -24,3 +24,10 @@ Route::post('register', 'UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
 Route::post('details', 'UserController@details');
 });
+
+Route::post('admins', 'AdministradorController@admin');
+Route::post('registerAdmins', 'AdministradorController@registerAdmin');
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::post('details', 'AdministradorController@details');
+    });
+    
