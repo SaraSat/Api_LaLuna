@@ -18,7 +18,7 @@ class CreateLunerosTable extends Migration
             $table->string("nombre");
             $table->string("apellidos");
             $table->integer("telf");
-            $table->integer("telf2");
+            $table->integer("telf2")->nullable();
             $table->string("tutores");
             $table->string("patologias");
             $table->string("coment");

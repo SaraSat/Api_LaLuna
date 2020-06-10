@@ -13,16 +13,13 @@ use Validator;
 class AdministradorController extends Controller
 {
     public $successStatus = 200;
-    protected $guard = 'admin';
-
+   
 
     public function admin(Request $request)
 
     {
-
-       if (Auth::guard('admin')->attempt(['password' => $request['password']])) {
-            return response()->json('hola');
-            $user = Auth::admin();
+       if (Auth::guard('administrador')->attempt(['user_id'=>1, 'password' => $request['password']])) {
+            $user = Auth::guard('administrador')->user();
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
             return response()->json(['success' => $success], $this-> successStatus);
         } else {
@@ -57,7 +54,7 @@ class AdministradorController extends Controller
     */
     public function details()
     {
-        $user = Auth::admin();
+        $user = Auth::guard('administrador')->user();
         return response()->json(['success' => $user], $this-> successStatus);
     }
 }

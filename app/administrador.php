@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class administrador extends Authenticatable
 {
     use HasApiTokens, Notifiable;
-    protected $guard = 'admin';
+    protected $guard = 'administrador';
     protected $fillable = ['password', 'cargo', 'user_id'];
 
     protected $hidden = [

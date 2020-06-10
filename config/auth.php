@@ -48,7 +48,7 @@ return [
         ],
 
         //Add Admin Guard
-        'admin' => [
+        'administrador' => [
             'driver'   => 'session',
             'provider' => 'administradors',
         ],
