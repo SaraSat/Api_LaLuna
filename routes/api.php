@@ -21,12 +21,15 @@ Route::resource('luneros','LuneroController');
 
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
+Route::post('logout', 'UserController@logout');
+
 Route::group(['middleware' => 'auth:api'], function(){
 Route::post('details', 'UserController@details');
 });
 
 Route::post('admins', 'AdministradorController@admin');
 Route::post('registerAdmins', 'AdministradorController@registerAdmin');
+
 Route::group(['middleware' => 'auth:administrador'], function(){
     Route::post('details', 'AdministradorController@details');    });
     

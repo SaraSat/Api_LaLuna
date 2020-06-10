@@ -48,6 +48,12 @@ class UserController extends Controller
             $success['name'] =  $user->name;
             return response()->json(['success'=>$success], $this-> successStatus);
     }
+
+    public function logout(Request $request){
+        Auth::logoutOtherDevices($request);
+        return response()->json('Okk');
+    }
+
     /**
     * details api
     *
