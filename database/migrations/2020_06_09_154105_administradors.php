@@ -17,7 +17,7 @@ class Administradors extends Migration
             
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('CASCADE');
             $table->string('cargo');
             $table->string('password');
             $table->rememberToken();
@@ -33,12 +33,13 @@ class Administradors extends Migration
      */
     public function down()
     {
-        Schema::table('administradors', function (Blueprint $table){
-            $table->dropForeign('administradors_user_id_foreign');
-            $table->dropColumn('[user_id]');
-        }); 
-        
-        Schema::dropIfExists('admins');
+        /*Schema::table('administradors', function (Blueprint $table){
+            $table->dropForeign('[user_id]');
+        });*/ 
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Schema::dropIfExists('administradors');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        
     }
 }
