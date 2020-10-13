@@ -23,6 +23,7 @@ class CreateIniciosTable extends Migration
             $table->double('precio');
             $table->string('horaF');
             $table->string('lugarF');
+            $table->boolean('aviso');
             $table->timestamps();
         });
     }
