@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\actividad;
 use Illuminate\Http\Request;
+use Validator;
 
 class ActividadController extends Controller
 {
@@ -36,8 +37,33 @@ class ActividadController extends Controller
      */
     public function store(Request $request)
     {
-        $actividad = actividad::create($request->all());
-        return $actividad;
+        
+        $validator = [
+            'nombre' => 'required',
+            'fecha' => 'required',
+            'desc' => 'required',
+            ];
+
+        $messages=[
+            'nombre.required' => 'El nombre el obligatorio',
+            'fecha.required' => 'La fecha es obligatoria',
+            'desc.required' => 'Debes introducir una breve descripción de la actividad',
+        ];
+
+        $v=Validator::make($request->all(), $validator, $messages);
+
+        if($v->fails()){
+            
+            return response()->json(['error'=>$v->errors()],401);
+
+        }else{
+            
+            $actividad = actividad::create($request->all());
+            return $actividad;
+
+        }
+
+    
 
     }
 
@@ -73,11 +99,31 @@ class ActividadController extends Controller
      */
     public function update(Request $request, actividad $actividad)
     {
-          
-        $actividad->fill($request->all());
-        $actividad->save();
+        $validator = [
+            'nombre' => 'required',
+            'fecha' => 'required',
+            'desc' => 'required',
+            ];
 
-        return $actividad;   
+        $messages=[
+            'nombre.required' => 'El nombre el obligatorio',
+            'fecha.required' => 'La fecha es obligatoria',
+            'desc.required' => 'Debes introducir una breve descripción de la actividad',
+        ];
+
+        $v=Validator::make($request->all(), $validator, $messages);
+
+        if($v->fails()){
+            
+            return response()->json(['error'=>$v->errors()],401);
+
+        }else{
+
+            $actividad->fill($request->all());
+            $actividad->save();
+
+            return $actividad;   
+        }
     }
 
     /**
