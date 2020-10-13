@@ -24,7 +24,8 @@ class UserController extends Controller
 
         $messages=[
             'email.required' => 'El email es obligatorio',
-            'password.required' => 'La contraseña es aobligatoria'
+            'email.email'=>'Email no válido',
+            'password.required' => 'La contraseña es obligatoria'
         ];
 
         $v=Validator::make($request->all(), $validator, $messages);
@@ -40,6 +41,9 @@ class UserController extends Controller
 
             return response()->json(['success' => $success], $this-> successStatus);
         } 
+        else{
+            return response()->json(['error'=>['Constraseña o usuario incorrectos']], 401);
+        }
     }
     /**
     * Register api
@@ -48,22 +52,49 @@ class UserController extends Controller
     */
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = [
             'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
             'c_password' => 'required|same:password',
-            ]);
+            ];
 
-        if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
-        }
+        $messages=[
+            'name.required' => 'El nombre el obligatorio',
+            'email.required' => 'El email es obligatorio',
+            'email.email'=>'Email no válido',
+            'email.unique' => 'Email duplicado',
+            'password.required' => 'La contraseña es obligatoria',
+            'password.min'=>'La contraseña debe tener al menos 8 dígitos',
+            'c_password.required' => 'Contraseña obligatoria',
+            'c_password.same'=>'Las constraseñas no coninciden',
+        ];
+
+        $v=Validator::make($request->all(), $validator, $messages);
+
+        if($v->fails()){
+            
+            return response()->json(['error'=>$v->errors()],401);
+
+        }else{
+
             $input = $request->all();
+
             $input['password'] = bcrypt($input['password']);
+
             $user = User::create($input);
+
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
+
             $success['name'] =  $user->name;
+
+
+
             return response()->json(['success'=>$success], $this-> successStatus);
+
+        }
+    
+           
     }
 
     public function logout(Request $request){
