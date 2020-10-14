@@ -60,7 +60,7 @@ class UserController extends Controller
             ];
 
         $messages=[
-            'name.required' => 'El nombre el obligatorio',
+            'name.required' => 'El nombre es obligatorio',
             'email.required' => 'El email es obligatorio',
             'email.email'=>'Email no válido',
             'email.unique' => 'Email duplicado',

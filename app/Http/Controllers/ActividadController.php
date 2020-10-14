@@ -45,7 +45,7 @@ class ActividadController extends Controller
             ];
 
         $messages=[
-            'nombre.required' => 'El nombre el obligatorio',
+            'nombre.required' => 'El nombre es obligatorio',
             'fecha.required' => 'La fecha es obligatoria',
             'desc.required' => 'Debes introducir una breve descripción de la actividad',
         ];
@@ -106,7 +106,7 @@ class ActividadController extends Controller
             ];
 
         $messages=[
-            'nombre.required' => 'El nombre el obligatorio',
+            'nombre.required' => 'El nombre es obligatorio',
             'fecha.required' => 'La fecha es obligatoria',
             'desc.required' => 'Debes introducir una breve descripción de la actividad',
         ];
