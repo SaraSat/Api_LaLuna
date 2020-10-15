@@ -16,12 +16,12 @@ class CreateLunerosTable extends Migration
         Schema::create('luneros', function (Blueprint $table) {
             $table->increments("id"); //es obligatorio el cod no lo coge
             $table->string("nombre");
-            $table->string("apellidos");
+            $table->string("apellidos")->nullable();
             $table->integer("telf");
             $table->integer("telf2")->nullable();
-            $table->string("tutores");
-            $table->string("patologias");
-            $table->string("coment");
+            $table->string("tutores")->nullable();
+            $table->string("patologias")->nullable();
+            $table->string("coment")->nullable();
             $table->timestamps();// actualizar y borrar se deja 
         });
     }
