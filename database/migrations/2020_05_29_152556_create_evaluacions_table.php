@@ -21,7 +21,7 @@ class CreateEvaluacionsTable extends Migration
             $table->string("mejor");
             $table->string("peor");
             $table->string("equipo");
-            $table->string("recordar");
+            $table->string("recordar")->nullable();
             $table->timestamps();// actualizar y borrar se deja 
         });
     }

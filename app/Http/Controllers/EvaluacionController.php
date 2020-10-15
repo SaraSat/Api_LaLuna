@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\evaluacion;
 use Illuminate\Http\Request;
+use Validator;
 
 class EvaluacionController extends Controller
 {
@@ -37,8 +38,37 @@ class EvaluacionController extends Controller
     public function store(Request $request)
     {
         //este es el metodo post para insertar una nueva evaluacion
-        $evaluacion = evaluacion::create($request->all());
-        return $evaluacion;
+        
+        $validator = [
+            'nombre' => 'required',
+            'fecha' => 'required',
+            'desc' => 'required',
+            'mejor' => 'required',
+            'peor' => 'required',
+            'equipo' => 'required'
+
+            ];
+
+        $messages=[
+            'nombre.required' => 'El nombre es obligatorio',
+            'fecha.required' => 'La fecha es obligatoria',
+            'mejor.required' => 'Introduce lo mejor de la actividad',
+            'desc.required' => 'Debes introducir una breve descripción de la actividad',
+            'peor.required' => 'Debes introducir algo a mejorar o a tener en cuenta',
+            'equipo.required' => 'Debes  introducir soluciones de equipo'
+        ];
+
+        $v=Validator::make($request->all(), $validator, $messages);
+
+        if($v->fails()){
+            
+            return response()->json(['error'=>$v->errors()],401);
+
+        }else{
+
+            $evaluacion = evaluacion::create($request->all());
+            return $evaluacion;
+        }
     }
 
     /**
@@ -77,9 +107,37 @@ class EvaluacionController extends Controller
         //es para actualizar los datos de la tabla (metodo put)
         // recibe una peticion y lo que hace es meterlo en la tabla
 
-        $evaluacion->fill($request->all());
-        $evaluacion->save();
-        return $evaluacion;   
+        $validator = [
+            'nombre' => 'required',
+            'fecha' => 'required',
+            'desc' => 'required',
+            'mejor' => 'required',
+            'peor' => 'required',
+            'equipo' => 'required'
+
+            ];
+
+        $messages=[
+            'nombre.required' => 'El nombre es obligatorio',
+            'fecha.required' => 'La fecha es obligatoria',
+            'mejor.required' => 'Introduce lo mejor de la actividad',
+            'desc.required' => 'Debes introducir una breve descripción de la actividad',
+            'peor.required' => 'Debes introducir algo a mejorar o a tener en cuenta',
+            'equipo.required' => 'Debes  introducir soluciones de equipo'
+        ];
+
+        $v=Validator::make($request->all(), $validator, $messages);
+
+        if($v->fails()){
+            
+            return response()->json(['error'=>$v->errors()],401);
+
+        }else{
+
+            $evaluacion->fill($request->all());
+            $evaluacion->save();
+            return $evaluacion;   
+        }
     }
 
     /**
