@@ -8,5 +8,5 @@ class inicio extends Model
 {
     protected $fillable = ['nombre', 'dia',
     'fecha','hora','lugar','desc',
-    'precio', 'horaF', 'lugarF', 'aviso', 'motivo'];
+    'precio', 'horaF', 'lugarF', 'aviso', 'motivo', 'direccionInicio', 'direccionFinal'];
 }
